@@ -1,0 +1,35 @@
+{
+  "name": "LikeExperiment",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "Add like capabilities to Slite's notes",
+  "homepage_url": "https://github.com/julienR2/slite-like-experiment",
+  "applications": {
+    "gecko": {
+      "id": "LikeExperiment@LikeExperiment.com"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "19": "icons/icon19.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "default_locale": "en",
+  "content_scripts": [{
+    "css": [
+      "css/styles.css"
+    ],
+    "js": [
+      "src/index.js"
+    ],
+    "matches": [
+      "https://*.slite.com/app/filters/*",
+      "https://*.slite.com/app/channels/*"
+    ]
+  }],
+  "permissions": [
+    "storage",
+    "https://fonts.googleapis.com/*"
+  ]
+}
