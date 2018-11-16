@@ -1,0 +1,9 @@
+.like_button_container {
+  position: absolute;
+  bottom: 14px;
+  right: 26px;
+}
+
+.note-row:hover .like_button_container {
+  display: none;
+}

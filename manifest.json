@@ -18,9 +18,14 @@
   "default_locale": "en",
   "content_scripts": [{
     "css": [
+      "css/materialicons.css",
       "css/styles.css"
     ],
     "js": [
+      "js/jquery-3.3.1.min.js",
+      "js/react.production.min.js",
+      "js/react-dom.production.min.js",
+      "src/likeButton.js",
       "src/index.js"
     ],
     "matches": [
