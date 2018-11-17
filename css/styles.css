@@ -1,9 +1,16 @@
-.like_button_container {
+.note-like {
   position: absolute;
   bottom: 14px;
   right: 26px;
 }
 
-/* .note-row:hover .like_button_container {
+.note-row:hover .note-like {
   display: none;
-} */
+}
+
+.toolbar-like {
+  text-align: center;
+  padding: 8px 0px;
+  cursor: pointer;
+  user-select: none;
+}

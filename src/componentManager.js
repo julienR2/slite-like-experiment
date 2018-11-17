@@ -1,11 +1,27 @@
 class ComponentManager {
   constructor() {
-    this.components = {};
+    this.noteLikes = {};
+    this.toolbarLike = null;
   }
 
-  triggerUpdate = id => this.components[id].forceUpdate()
+  triggerUpdate = id => {
+    console.log('triggerUpdate', id);
+    console.log('this.noteLikes', this.noteLikes);
+    this.noteLikes[id].forceUpdate();
 
-  registerComponent = (id, component) => {
-    this.components[id] = component;
+    console.log('this.toolbarLike', this.toolbarLike);
+    if (!!this.toolbarLike) {
+      this.toolbarLike.forceUpdate();
+    }
+  }
+
+  registerNoteLike = (id, component) => {
+    console.log('register note', id, component);
+    this.noteLikes[id] = component;
+  }
+
+  registerToolbarLike = (component) => {
+    console.log('register component', component);
+    this.toolbarLike = component;
   }
 }

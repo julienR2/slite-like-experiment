@@ -19,29 +19,61 @@ function noteLikeButtons() {
     const id = href[href.length - 1];
 
     const $noteRow = $(this).find('.note-row');
-    const $buttonContainer = $('<div class="like_button_container"></div>');
+    const $buttonContainer = $('<div class="note-like"></div>');
     $noteRow.append($buttonContainer);
 
-    const likeButtonComponent = ReactDOM.render(
+    const noteLikeComponent = ReactDOM.render(
       React.createElement(LikeButton, {
         noteId: id,
         storage,
-        onToggleLike: toggleLike(id),
       }),
       $buttonContainer[0],
     );
 
-    componentManager.registerComponent(id, likeButtonComponent);
+    componentManager.registerNoteLike(id, noteLikeComponent);
   });
+}
+
+function toolBarLikeButton() {
+  $('.toolbar-like').remove();
+  const $toolbarButton = $('.note-view .height-full .flexbox-grow .center-text');
+  const $buttonContainer = $('<div class="toolbar-like"></div>');
+  $buttonContainer.insertAfter($toolbarButton);
+
+  const href = window.location.href.split('/');
+  const id = href[href.length - 1];
+
+  const toolbarLikeComponent = ReactDOM.render(
+    React.createElement(LikeButton, {
+      noteId: id,
+      storage,
+      onToggleLike: toggleLike(id),
+    }),
+    $buttonContainer[0],
+  );
+
+  componentManager.registerToolbarLike(toolbarLikeComponent);
 }
 
 setTimeout(() => {
   noteLikeButtons();
+  toolBarLikeButton();
 
   const sidepanel = $('.sidepanel');
-  sidepanel.bind("DOMSubtreeModified", function(e) {
+
+  sidepanel.bind("DOMSubtreeModified", function(event) {
     if ($(event.target).hasClass('ReactVirtualized__Grid')) {
       noteLikeButtons();
+      toolBarLikeButton();
+    }
+  });
+
+  const $toolbar = $('.note-view');
+
+  $toolbar.bind("DOMSubtreeModified", function(event) {
+    console.log('event', event);
+    if ($(event.target).hasClass('shade-00-on-hover')) {
+      toolBarLikeButton();
     }
   });
 }, 3000);
