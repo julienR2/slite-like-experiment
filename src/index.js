@@ -102,14 +102,14 @@ setTimeout(() => {
   noteLikeButtons();
   toolBarLikeButton();
 
-  const sidepanel = $('.sidepanel');
+  const $sidepanel = $('.sidepanel');
 
   // When the channel bar change, update the like button
   // This allow to run the script on URL change
-  sidepanel.bind("DOMSubtreeModified", function(event) {
+  $sidepanel.bind("DOMSubtreeModified", function(event) {
     if ($(event.target).hasClass('ReactVirtualized__Grid')) {
       noteLikeButtons();
-      toolBarLikeButton();
+      setTimeout(toolBarLikeButton, 1000);
     }
   });
 
