@@ -9,7 +9,6 @@
 
 <p align="center">
   <a href="#description">Description</a> •
-  <a href="#download">Download</a> •
   <a href="#license">License</a> •
   <a href="#authors">Authors</a>
 </p>
@@ -18,9 +17,6 @@
 
 Add like button to Slite interface in order to simulate Liking-notes behavior !
 
-## Download
-
-Chrome Version [here]()
 
 ## License
 
