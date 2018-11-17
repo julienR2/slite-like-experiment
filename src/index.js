@@ -6,7 +6,7 @@ const toggleLike = id => () => {
   componentManager.triggerUpdate(id);
 }
 
-function main() {
+function noteLikeButtons() {
   const nodeList = $('.ReactVirtualized__Grid__innerScrollContainer');
   nodeList.children('div').each(function(index) {
     const noteRef = $(this).find('a');
@@ -36,12 +36,12 @@ function main() {
 }
 
 setTimeout(() => {
-  main();
+  noteLikeButtons();
 
   const sidepanel = $('.sidepanel');
   sidepanel.bind("DOMSubtreeModified", function(e) {
     if ($(event.target).hasClass('ReactVirtualized__Grid')) {
-      main();
+      noteLikeButtons();
     }
   });
 }, 3000);

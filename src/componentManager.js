@@ -1,17 +1,11 @@
 class ComponentManager {
   constructor() {
-    this.components = [];
+    this.components = {};
   }
 
-  triggerUpdate = id => {
-    console.log('this.components', this.components);
-    this.components[id].map(component => component.forceUpdate())
-  };
+  triggerUpdate = id => this.components[id].forceUpdate()
 
   registerComponent = (id, component) => {
-    this.components[id] = [
-      component,
-      ...(this.components[id] || []),
-    ];
+    this.components[id] = component;
   }
 }
