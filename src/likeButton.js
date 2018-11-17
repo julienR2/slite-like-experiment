@@ -1,27 +1,23 @@
 'use strict';
 
 class LikeButton extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      liked: false,
-    };
+  static propTypes = {
+    noteId: PropTypes.string,
+    storage: PropTypes.object,
+    onToggleLike: PropTypes.func,
   }
 
-  onToggle = () => this.setState(prevState => ({ liked: ! prevState.liked }))
-
   render() {
-    const { liked } = this.state;
+    const { noteId, storage, onToggleLike } = this.props;
 
     return React.createElement(
       'i',
       {
-        onClick: this.onToggle,
+        onClick: onToggleLike,
         className: 'material-icons',
         style: {
           ...styles.icon,
-          ...(liked && styles.iconLiked || {}),
+          ...(!!storage[noteId] && styles.iconLiked || {}),
         },
       },
       'thumb_up'
