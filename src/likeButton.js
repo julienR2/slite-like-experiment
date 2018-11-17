@@ -9,6 +9,7 @@ class LikeButton extends React.Component {
 
   render() {
     const { noteId, storage, onToggleLike } = this.props;
+    const { liked, count } = storage[noteId];
 
     return React.createElement(
       'i',
@@ -17,7 +18,7 @@ class LikeButton extends React.Component {
         className: 'material-icons',
         style: {
           ...styles.icon,
-          ...(!!storage[noteId] && styles.iconLiked || {}),
+          ...(liked && styles.iconLiked || {}),
         },
       },
       'thumb_up'

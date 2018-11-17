@@ -2,8 +2,22 @@ let storage = {};
 const componentManager = new ComponentManager();
 
 const toggleLike = id => () => {
-  storage[id] = storage[id] ? 0 : 1;
+  const { liked, count } = storage[id];
+
+  storage[id] = {
+    liked: !liked,
+    count: !liked ? count - 1 : count + 1,
+  };
   componentManager.triggerUpdate(id);
+}
+
+const initStorage = (id) => {
+  if (!storage[id]) {
+    storage[id] = {
+      liked: false,
+      count: Math.floor(Math.random() * Math.floor(5)),
+    }
+  }
 }
 
 function noteLikeButtons() {
@@ -17,6 +31,8 @@ function noteLikeButtons() {
 
     const href = noteRef.attr('href').split('/');
     const id = href[href.length - 1];
+
+    initStorage(id);
 
     const $noteRow = $(this).find('.note-row');
     const $buttonContainer = $('<div class="note-like"></div>');
@@ -71,9 +87,8 @@ setTimeout(() => {
   const $toolbar = $('.note-view');
 
   $toolbar.bind("DOMSubtreeModified", function(event) {
-    console.log('event', event);
     if ($(event.target).hasClass('shade-00-on-hover')) {
       toolBarLikeButton();
     }
   });
-}, 3000);
+}, 2000);
