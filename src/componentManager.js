@@ -1,3 +1,4 @@
+// This class keeps track of the current existing component to be able to force their update when necessary
 class ComponentManager {
   constructor() {
     this.noteLikes = {};

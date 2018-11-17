@@ -14,13 +14,20 @@ const toggleLike = id => () => {
     liked: !liked,
     count: liked ? count - 1 : count + 1,
   };
+
+  // When the store change we update the component related to this part of the storage
+  // This is to simulate roughly a redux store and a component being updated when the part
+  // of the store it is attached changes
   componentManager.triggerUpdate(id);
 }
 
+// Simulate initial content
 const initStorage = (id) => {
   if (!storage[id]) {
+    // Randomely attribute true/false value
     const liked = !!getRandomInt(0, 1);
 
+    // Randomely attribute a count depending on the initial liked value
     storage[id] = {
       liked,
       count: getRandomInt((liked ? 1 : 0), 5),
@@ -28,11 +35,15 @@ const initStorage = (id) => {
   }
 }
 
+// Set up like button on each note from the channel list
 function noteLikeButtons() {
-  const nodeList = $('.ReactVirtualized__Grid__innerScrollContainer');
-  nodeList.children('div').each(function(index) {
+  // get the note list
+  const noteList = $('.ReactVirtualized__Grid__innerScrollContainer');
+
+  noteList.children('div').each(function(index) {
     const noteRef = $(this).find('a');
 
+    // if no href, it's probably not a note
     if (!noteRef || !noteRef.attr('href')) {
       return;
     }
@@ -40,12 +51,16 @@ function noteLikeButtons() {
     const href = noteRef.attr('href').split('/');
     const id = href[href.length - 1];
 
+    // Init the storage if not already done
     initStorage(id);
 
     const $noteRow = $(this).find('.note-row');
+
+    // Append the container of the LikeButton to the HTML
     const $buttonContainer = $('<div class="note-like"></div>');
     $noteRow.append($buttonContainer);
 
+    // Create a LikeButton Component and attach it to the previously created container
     const noteLikeComponent = ReactDOM.render(
       React.createElement(LikeButton, {
         noteId: id,
@@ -58,6 +73,7 @@ function noteLikeButtons() {
   });
 }
 
+// Set up like button in the toolbar
 function toolBarLikeButton() {
   $('.toolbar-like').remove();
   const $toolbarButton = $('.note-view .height-full .flexbox-grow .center-text');
@@ -81,12 +97,15 @@ function toolBarLikeButton() {
   componentManager.registerToolbarLike(toolbarLikeComponent);
 }
 
+// Wait for the content to load before setting event
 setTimeout(() => {
   noteLikeButtons();
   toolBarLikeButton();
 
   const sidepanel = $('.sidepanel');
 
+  // When the channel bar change, update the like button
+  // This allow to run the script on URL change
   sidepanel.bind("DOMSubtreeModified", function(event) {
     if ($(event.target).hasClass('ReactVirtualized__Grid')) {
       noteLikeButtons();
@@ -96,6 +115,8 @@ setTimeout(() => {
 
   const $toolbar = $('.note-view');
 
+  // When the note view change, update the like button in the toolbar
+  // It update the like button when navigating to a note detail
   $toolbar.bind("DOMSubtreeModified", function(event) {
     if ($(event.target).hasClass('shade-00-on-hover')) {
       toolBarLikeButton();

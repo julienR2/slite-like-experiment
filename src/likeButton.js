@@ -1,5 +1,8 @@
 'use strict';
 
+// Like Button Component
+// We can't use JSX here due to the script being load by Chrome extention preventing us to set up Babel correctly
+// Since the component isn't wrapped in a React Component, we have to trigger mannually the update to simulate props changes
 class LikeButton extends React.Component {
   static propTypes = {
     noteId: PropTypes.string,
