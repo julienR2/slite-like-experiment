@@ -12,26 +12,55 @@ class LikeButton extends React.Component {
     const { liked, count } = storage[noteId];
 
     return React.createElement(
-      'i',
+      'div',
       {
         onClick: onToggleLike,
-        className: 'material-icons',
-        style: {
-          ...styles.icon,
-          ...(liked && styles.iconLiked || {}),
-        },
+        style: styles.wrapper,
       },
-      'thumb_up'
+      React.createElement(
+        'i',
+        {
+          className: 'material-icons',
+          style: {
+            ...styles.icon,
+            ...(liked && styles.iconLiked || {}),
+          },
+        },
+        'thumb_up'
+      ),
+      React.createElement(
+        'p',
+        {
+          style: {
+            ...styles.count,
+            ...(!count && styles.countNull || {}),
+          },
+        },
+        count
+      ),
     );
   }
 }
 
 const styles = {
+  wrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   icon: {
     fontSize: '14px',
     color: '#cccccc',
   },
   iconLiked: {
     color: '#ff486b',
+  },
+  count: {
+    fontSize: '12px',
+    color: '#cccccc',
+    marginLeft: '4px',
+  },
+  countNull: {
+    display: 'none',
   },
 }

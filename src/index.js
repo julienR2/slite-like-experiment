@@ -1,21 +1,29 @@
 let storage = {};
 const componentManager = new ComponentManager();
 
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 const toggleLike = id => () => {
   const { liked, count } = storage[id];
 
   storage[id] = {
     liked: !liked,
-    count: !liked ? count - 1 : count + 1,
+    count: liked ? count - 1 : count + 1,
   };
   componentManager.triggerUpdate(id);
 }
 
 const initStorage = (id) => {
   if (!storage[id]) {
+    const liked = !!getRandomInt(0, 1);
+
     storage[id] = {
-      liked: false,
-      count: Math.floor(Math.random() * Math.floor(5)),
+      liked,
+      count: getRandomInt((liked ? 1 : 0), 5),
     }
   }
 }
@@ -58,6 +66,8 @@ function toolBarLikeButton() {
 
   const href = window.location.href.split('/');
   const id = href[href.length - 1];
+
+  initStorage(id);
 
   const toolbarLikeComponent = ReactDOM.render(
     React.createElement(LikeButton, {
