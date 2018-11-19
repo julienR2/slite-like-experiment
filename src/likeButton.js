@@ -4,12 +4,6 @@
 // We can't use JSX here due to the script being load by Chrome extention preventing us to set up Babel correctly
 // Since the component isn't wrapped in a React Component, we have to trigger mannually the update to simulate props changes
 class LikeButton extends React.Component {
-  static propTypes = {
-    noteId: PropTypes.string,
-    storage: PropTypes.object,
-    onToggleLike: PropTypes.func,
-  }
-
   render() {
     const { noteId, storage, onToggleLike } = this.props;
     const { liked, count } = storage[noteId];
@@ -43,6 +37,12 @@ class LikeButton extends React.Component {
       ),
     );
   }
+}
+
+LikeButton.propTypes = {
+  noteId: PropTypes.string,
+  storage: PropTypes.object,
+  onToggleLike: PropTypes.func,
 }
 
 const styles = {

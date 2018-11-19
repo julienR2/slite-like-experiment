@@ -5,7 +5,7 @@ class ComponentManager {
     this.toolbarLike = null;
   }
 
-  triggerUpdate = id => {
+  triggerUpdate() {
     this.noteLikes[id].forceUpdate();
 
     if (!!this.toolbarLike) {
@@ -13,11 +13,11 @@ class ComponentManager {
     }
   }
 
-  registerNoteLike = (id, component) => {
+  registerNoteLike(id, component) {
     this.noteLikes[id] = component;
   }
 
-  registerToolbarLike = (component) => {
+  registerToolbarLike(component) {
     this.toolbarLike = component;
   }
 }
