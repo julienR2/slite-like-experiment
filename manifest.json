@@ -1,6 +1,6 @@
 {
   "name": "LikeExperiment",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "manifest_version": 2,
   "description": "Add like capabilities to Slite's notes",
   "homepage_url": "https://github.com/julienR2/slite-like-experiment",
